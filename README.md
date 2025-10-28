@@ -101,3 +101,6 @@ vfio-pci 같은 드라이버를 커널에 로드해야 합니다.
 ENA 네트워크 인터페이스를 커널에서 분리(unbind)하여 DPDK에 바인딩하는 과정이 필요합니다.
 
 HugePages 설정 등 시스템 튜닝이 필수입니다.
+
+
+https://www.youtube.com/watch?v=DsNEtIS_q_E
