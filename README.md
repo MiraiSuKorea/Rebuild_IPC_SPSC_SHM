@@ -2,7 +2,9 @@
 
 FIX
 
+<img width="1068" height="1351" alt="image" src="https://github.com/user-attachments/assets/e0cbe5f4-3fec-40dd-97dc-dfd13530662a" />
 
+<img width="1818" height="915" alt="image" src="https://github.com/user-attachments/assets/9a261c79-7a09-477f-bc8c-23c67610509c" />
 
 <img width="3665" height="5658" alt="Untitled diagram-2025-11-02-064258" src="https://github.com/user-attachments/assets/14a4166c-7006-439d-b580-502d7cce4617" />
 <img width="3524" height="691" alt="Untitled diagram-2025-11-02-063911" src="https://github.com/user-attachments/assets/c8dc2d3b-b216-49d7-afa3-7759cf1d4c49" />
