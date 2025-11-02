@@ -1,5 +1,31 @@
 # Rebuild_IPC_SPSC_SHM
 
+FIX
+
+
+
+<img width="3665" height="5658" alt="Untitled diagram-2025-11-02-064258" src="https://github.com/user-attachments/assets/14a4166c-7006-439d-b580-502d7cce4617" />
+<img width="3524" height="691" alt="Untitled diagram-2025-11-02-063911" src="https://github.com/user-attachments/assets/c8dc2d3b-b216-49d7-afa3-7759cf1d4c49" />
+<img width="3845" height="3157" alt="Untitled diagram-2025-11-02-062227" src="https://github.com/user-attachments/assets/f507413d-c68b-445f-b253-b6ea1eccf29b" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <img width="801" height="641" alt="image" src="https://github.com/user-attachments/assets/768caa0f-9ec5-41ac-8f83-fcd7e7b895ea" />
 
 <img width="1012" height="570" alt="image" src="https://github.com/user-attachments/assets/3db73e45-cbb4-4e7e-94e6-847f300b60e7" />
