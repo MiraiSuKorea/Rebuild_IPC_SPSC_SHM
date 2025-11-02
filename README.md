@@ -1,44 +1,51 @@
 # Rebuild_IPC_SPSC_SHM
 
-FIX
-
-<img width="1068" height="1351" alt="image" src="https://github.com/user-attachments/assets/e0cbe5f4-3fec-40dd-97dc-dfd13530662a" />
-
-<img width="1818" height="915" alt="image" src="https://github.com/user-attachments/assets/9a261c79-7a09-477f-bc8c-23c67610509c" />
-
-<img width="3665" height="5658" alt="Untitled diagram-2025-11-02-064258" src="https://github.com/user-attachments/assets/14a4166c-7006-439d-b580-502d7cce4617" />
-<img width="3524" height="691" alt="Untitled diagram-2025-11-02-063911" src="https://github.com/user-attachments/assets/c8dc2d3b-b216-49d7-afa3-7759cf1d4c49" />
+1. Structure [80%]
 <img width="3845" height="3157" alt="Untitled diagram-2025-11-02-062227" src="https://github.com/user-attachments/assets/f507413d-c68b-445f-b253-b6ea1eccf29b" />
 
+2. FSM logic
+<img width="3665" height="5658" alt="Untitled diagram-2025-11-02-064258" src="https://github.com/user-attachments/assets/14a4166c-7006-439d-b580-502d7cce4617" />
 
+3. 
+<img width="3524" height="691" alt="Untitled diagram-2025-11-02-063911" src="https://github.com/user-attachments/assets/c8dc2d3b-b216-49d7-afa3-7759cf1d4c49" />
 
+4. Bitget demo trading [100% Fully working / cpp.map, IPC, shm_ring working perfect.]
+<img width="1068" height="1351" alt="image" src="https://github.com/user-attachments/assets/e0cbe5f4-3fec-40dd-97dc-dfd13530662a" />
 
+5. Programs [80%, Need to detach private websocket don ws_data generator(moved all private ws functions in Ordermanagement system), need to build Order Flow index(cancel ratio, refill ratio, trades executed), strategy.py to strategy.pyx(cpp)]
+<img width="1818" height="915" alt="image" src="https://github.com/user-attachments/assets/9a261c79-7a09-477f-bc8c-23c67610509c" />
 
+6. Data center [50%]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+7. Signal [100%]
 <img width="1012" height="570" alt="image" src="https://github.com/user-attachments/assets/3db73e45-cbb4-4e7e-94e6-847f300b60e7" />
 
+8. Optimization []
 
+9. Backtesting []
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+================================================Tips===================================================
 1. DPDK는 최후의 보루로
 2. 일단 컨테이너들 네트워크 모드를 브릿지가 아닌 호스트로 연결하기
-   
-
-1. 도커 네트워킹 최적화 (Docker Networking Optimization)
- 
-가장 기본적이면서 효과적인 방법은 도커의 네트워크 오버헤드를 제거하는 것입니다.
- 
+  
+1. 도커 네트워킹 최적화 (Docker Networking Optimization) 
 Host 네트워크 모드 사용
  
 적용: 컨테이너 실행 시 --network host 옵션을 사용합니다.
@@ -133,115 +140,10 @@ https://www.youtube.com/watch?v=DsNEtIS_q_E
 
 
 
-
-
-
-
-
-
 2025.10.29
 Orderbook std.map 매핑과정에서
-
 30000.96 -> 이거 자체를 키값으로 만드니 변환과정에서 에러가 뜸
 ex) 30000.95999999 -> 결국 업뎃안되고 Book_depth에 남아버림 -> OBI값 에러
-
 적용해결책 / 헬퍼추
 cdef int64_t price_str_to_int64(str price_str):
-    cdef long long main_val = 0
-    cdef long long frac_val = 0
-    cdef int dot_index = -1
-    cdef int precision = 8
-    cdef str main_part_str, frac_part_str
-    cdef int frac_len
-
-    dot_index = price_str.find('.')
-
-    if dot_index == -1:
-        main_val = int(price_str)
-        return main_val * 100000000 # 10**8
-
-    main_part_str = price_str[:dot_index]
-    if main_part_str: 
-        main_val = int(main_part_str) * 100000000
-
-    frac_part_str = price_str[dot_index+1:]
-    frac_len = len(frac_part_str)
-
-    if frac_len == 0: 
-        return main_val
-
-    if frac_len > precision:
-        frac_part_str = frac_part_str[:precision]
-    elif frac_len < precision:
-        frac_part_str = frac_part_str.ljust(precision, '0')
-
-    frac_val = int(frac_part_str)
-    return main_val + frac_val
-
-C++ map 부분
-
-cdef cppmap[int64_t, double] local_bids # <int64_t price_int, double qty>
-cdef cppmap[int64_t, double] local_asks # <int64_t price_int, double qty>
-int로 매핑하기
-
-Main Status] Bi-OB: connected_synced (OBI:0.4041) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.4030) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.4026) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3831) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3891) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3973) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3936) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3922) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3901) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3835) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3818) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3801) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3830) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3971) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3964) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3866) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3820) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3862) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3822) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3945) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3887) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3987) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3986) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3922) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3916) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3890) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3779) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3686) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3920) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3856) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3782) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3796) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3749) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3737) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3728) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3749) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3737) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3545) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3506) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3639) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3547) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3551) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3479) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3506) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3288) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3389) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3346) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3377) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3402) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3548) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3599) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3359) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3474) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3414) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3425) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3454) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3418) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3420) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3411) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
-[Main Status] Bi-OB: connected_synced (OBI:0.3411) | Bi-TR: connected | Bg-OB: connected | Bg-PR: live
 
