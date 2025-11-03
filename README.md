@@ -1,26 +1,31 @@
 # Rebuild_IPC_SPSC_SHM
 
-1. Structure [80%]
-<img width="3845" height="3157" alt="Untitled diagram-2025-11-02-062227" src="https://github.com/user-attachments/assets/f507413d-c68b-445f-b253-b6ea1eccf29b" />
+**1. Structure [100%] OFI logic added
+**<img width="3845" height="3157" alt="Untitled diagram-2025-11-02-062227" src="https://github.com/user-attachments/assets/f507413d-c68b-445f-b253-b6ea1eccf29b" />
 
-2. FSM logic
-<img width="3665" height="5658" alt="Untitled diagram-2025-11-02-064258" src="https://github.com/user-attachments/assets/14a4166c-7006-439d-b580-502d7cce4617" />
+**2. FSM logic
+**<img width="3665" height="5658" alt="Untitled diagram-2025-11-02-064258" src="https://github.com/user-attachments/assets/14a4166c-7006-439d-b580-502d7cce4617" />
 <img width="3524" height="691" alt="Untitled diagram-2025-11-02-063911" src="https://github.com/user-attachments/assets/c8dc2d3b-b216-49d7-afa3-7759cf1d4c49" />
 
-3. Bitget demo trading [100% Fully working / cpp.map, IPC, shm_ring working perfect.]
-<img width="1068" height="1351" alt="image" src="https://github.com/user-attachments/assets/e0cbe5f4-3fec-40dd-97dc-dfd13530662a" />
+**3. Bitget demo trading [100% Fully working / cpp.map, IPC, shm_ring working perfect.]
+**<img width="1068" height="1351" alt="image" src="https://github.com/user-attachments/assets/e0cbe5f4-3fec-40dd-97dc-dfd13530662a" />
 
-4. Programs [80%, Need to detach private websocket don ws_data generator(moved all private ws functions in Ordermanagement system), need to build Order Flow index(cancel ratio, refill ratio, trades executed), strategy.py to strategy.pyx(cpp)]
-<img width="1818" height="915" alt="image" src="https://github.com/user-attachments/assets/9a261c79-7a09-477f-bc8c-23c67610509c" />
+**4. Programs [100%, Need to detach private websocket don ws_data generator(moved all private ws functions in Ordermanagement system), need to build Order Flow index(cancel ratio, refill ratio, trades executed), strategy.py to strategy.pyx(cpp)]
+**<img width="1818" height="915" alt="image" src="https://github.com/user-attachments/assets/9a261c79-7a09-477f-bc8c-23c67610509c" />
 
-5. Data center [50%]
+5. Data center [80%]
+Parquet data creator using same ring buffer
 
-6. Signal [100%]
-<img width="1012" height="570" alt="image" src="https://github.com/user-attachments/assets/3db73e45-cbb4-4e7e-94e6-847f300b60e7" />
+6. Date Feeder [80%]
 
-7. Optimization []
+**7. Signal [100%]
+**<img width="1012" height="570" alt="image" src="https://github.com/user-attachments/assets/3db73e45-cbb4-4e7e-94e6-847f300b60e7" />
 
-8. Backtesting []
+
+8. Optimization []
+
+
+9. Backtesting []
 
 
 
