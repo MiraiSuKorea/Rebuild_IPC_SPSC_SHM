@@ -10,22 +10,33 @@
 **3. Bitget demo trading [100% Fully working / cpp.map, IPC, shm_ring working perfect.]
 **<img width="1068" height="1351" alt="image" src="https://github.com/user-attachments/assets/e0cbe5f4-3fec-40dd-97dc-dfd13530662a" />
 
-**4. Programs [100%, Need to detach private websocket don ws_data generator(moved all private ws functions in Ordermanagement system), need to build Order Flow index(cancel ratio, refill ratio, trades executed), strategy.py to strategy.pyx(cpp)]
-**<img width="1818" height="915" alt="image" src="https://github.com/user-attachments/assets/9a261c79-7a09-477f-bc8c-23c67610509c" />
+**4. Programs [100%]
+<img width="1818" height="915" alt="image" src="https://github.com/user-attachments/assets/9a261c79-7a09-477f-bc8c-23c67610509c" />
+<img width="1053" height="449" alt="{CAC75DBD-2CF5-4319-950A-DB66B0337B71}" src="https://github.com/user-attachments/assets/9f33b04d-c225-45b9-9e3a-0550e1294d12" />
 
-5. Data center [80%]
-Parquet data creator using same ring buffer
+5. Data center [90%] local_ts is faster than server ts(impossible)
+- Parquet data creator using same ring buffer
+- Record Server timestamp & Local timestamp [For comparing latency & Real world simulation]
+<img width="750" height="245" alt="{7C5A3834-5D9E-45D9-BB3F-61C6AB62155F}" src="https://github.com/user-attachments/assets/430f4c11-62f5-4efe-a447-a1a2478b77db" />
+<img width="586" height="535" alt="{5D52492C-DB1E-4C8B-BC3F-A0FFDB60591C}" src="https://github.com/user-attachments/assets/2cdfd342-0135-4624-a318-9a74329619ed" />
+<img width="579" height="607" alt="{A26BCBAD-AC14-48A1-A818-D2EA4D5918E4}" src="https://github.com/user-attachments/assets/4b7f7d7e-398e-4841-926b-5303e72b7816" />
 
-6. Date Feeder [80%]
-
-**7. Signal [100%]
-**<img width="1012" height="570" alt="image" src="https://github.com/user-attachments/assets/3db73e45-cbb4-4e7e-94e6-847f300b60e7" />
-
-
-8. Optimization []
+<img width="544" height="427" alt="{B6F20C6A-314A-4D2A-B4B5-3FD0A4EC97CA}" src="https://github.com/user-attachments/assets/b470b395-761c-4ab9-b3a7-a315e7921106" />
 
 
-9. Backtesting []
+
+
+
+7. Date Feeder [80%]
+
+８. Signal [100%]
+<img width="1012" height="570" alt="image" src="https://github.com/user-attachments/assets/3db73e45-cbb4-4e7e-94e6-847f300b60e7" />
+
+
+9. Optimization []
+
+
+10. Backtesting []
 
 
 
