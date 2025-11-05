@@ -31,6 +31,7 @@
 
 ８. Signal [100%]
 <img width="1012" height="570" alt="image" src="https://github.com/user-attachments/assets/3db73e45-cbb4-4e7e-94e6-847f300b60e7" />
+<img width="456" height="1391" alt="image" src="https://github.com/user-attachments/assets/abce87ae-987f-4278-a8ed-5627778ff48a" />
 
 
 9. Optimization []
