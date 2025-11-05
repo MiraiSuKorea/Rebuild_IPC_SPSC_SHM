@@ -38,6 +38,7 @@
 
 10. Backtesting []
 
+<img width="1500" height="1000" alt="image" src="https://github.com/user-attachments/assets/61243509-6db8-4615-981b-e24ac07b2c01" />
 
 
 
