@@ -1,0 +1,72 @@
+Mermaid 시스템 아키텍쳐
+
+---
+config:
+  layout: elk
+---
+flowchart LR
+ subgraph subGraph0["External APIs"]
+    direction LR
+        API_BI["Binance WS API"]
+        API_BG_PUB["Bitget Public WS"]
+        API_BG_PRIV["Bitget Private WS/REST"]
+  end
+ subgraph subGraph1["Data Workers"]
+    direction TB
+        W_OBI["Binance Alpha Maker<br>cython_module"]
+        W_OFI["Binance Regime Maker<br>cython_module"]
+        W_BGBOOK["Book Maker<br>orderbook_maker_cython"]
+        W_BGPOS["Bitget Private WS<br>bitget_private_ws_cython"]
+  end
+ subgraph subGraph2["Shared Memory Rings (IPC Bus)"]
+    direction TB
+        R_OBI["RING_OB_BI_PCT<br>OBI / Alpha"]
+        R_OFI["RING_OFI_BI<br>OFI / Kappa"]
+        R_BGBOOK["RING_OB_BG<br>Price / Execution"]
+        R_BGPOS["RING_BG_POS<br>Inventory / Skew"]
+        R_ORD["RING_ORD<br>Commands"]
+        R_FILL["RING_FILL<br>Fills"]
+        R_STATUS["RING_STATUS<br>Status"]
+  end
+ subgraph subGraph3["Process 2: Strategy (Computer 2)"]
+        S_ENGINE["DirectionalMMEngine (Cython)<br>3-Factor Model"]
+  end
+ subgraph subGraph4["Process 3: OMS (Computer 2)"]
+        O_OMS["Order Management System (Cython)<br>Auto-Cancel &amp; State Logic"]
+  end
+    API_BI --> W_OBI & W_OFI
+    W_OBI --> R_OBI
+    W_OFI --> R_OFI
+    API_BG_PUB --> W_BGBOOK
+    W_BGBOOK --> R_BGBOOK
+    API_BG_PRIV --> W_BGPOS
+    W_BGPOS --> R_BGPOS
+    R_OBI -- Read Alpha (OBI) --> S_ENGINE
+    R_OFI -- Read Kappa (OFI Vol) --> S_ENGINE
+    R_BGBOOK -- Read Price (BG Book) --> S_ENGINE
+    R_BGPOS -- Read Inventory (BG Pos) --> S_ENGINE
+    S_ENGINE -- [Cancel/Place] Commands --> R_ORD
+    R_ORD -- Read Commands --> O_OMS
+    O_OMS -- Send to Bitget --> API_BG_PRIV
+    API_BG_PRIV -- Get WS Updates --> O_OMS
+    O_OMS -- Write Fills --> R_FILL
+    O_OMS -- Write Status --> R_STATUS
+     API_BI:::api
+     API_BG_PUB:::api
+     API_BG_PRIV:::api
+     W_OBI:::process
+     W_OFI:::process
+     W_BGBOOK:::process
+     W_BGPOS:::process
+     R_OBI:::ring
+     R_OFI:::ring
+     R_BGBOOK:::ring
+     R_BGPOS:::ring
+     R_ORD:::ring
+     R_FILL:::ring
+     R_STATUS:::ring
+     S_ENGINE:::process
+     O_OMS:::process
+    classDef api fill:#FFF,stroke:#D00,stroke-width:2px
+    classDef process fill:#F9F,stroke:#333,stroke-width:2px
+    classDef ring fill:#FFFFE0,stroke:#333,stroke-width:1px,color:#333
