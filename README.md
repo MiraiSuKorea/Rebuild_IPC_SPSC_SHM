@@ -1,7 +1,8 @@
 # Rebuild_IPC_SPSC_SHM
 
-**1. Structure [100%] OFI logic added
-**<img width="3845" height="3157" alt="Untitled diagram-2025-11-02-062227" src="https://github.com/user-attachments/assets/f507413d-c68b-445f-b253-b6ea1eccf29b" />
+**1. Structure [100%]
+<img width="3041" height="1761" alt="Untitled diagram-2025-11-06-082216" src="https://github.com/user-attachments/assets/b99f564d-f4f1-4fd4-8693-47dc92e3d0a7" />
+
 
 **2. FSM logic
 **<img width="3665" height="5658" alt="Untitled diagram-2025-11-02-064258" src="https://github.com/user-attachments/assets/14a4166c-7006-439d-b580-502d7cce4617" />
