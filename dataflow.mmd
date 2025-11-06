@@ -1,0 +1,81 @@
+flowchart LR
+ subgraph subGraph0["External APIs"]
+    direction LR
+        API_BI["Binance WS API"]
+        API_BG_PUB["Bitget Public WS"]
+  end
+ subgraph subGraph1["Data Workers (Producer)"]
+    direction TB
+        W_OBI["Binance Alpha Maker<br>cython_module"]
+        W_OFI["Binance Regime Maker<br>cython_module"]
+        W_TRADE["Binance Trade Maker<br>trade_cython_module"]
+        W_BGBOOK["Bitget Book Maker<br>Bitget_orderbook_maker_cython"]
+  end
+ subgraph subGraph2["Shared Memory Rings (IPC)"]
+    direction TB
+        R_OBI["RING_1<br>"]
+        R_OFI["RING_2<br>"]
+        R_TRADE["RING_3"]
+        R_BGBOOK["RING_4"]
+  end
+ subgraph subGraph3["Process 2: Logger (Consumer)"]
+        L_LOGGER["Data Logger<br>data_logger.py"]
+  end
+ subgraph subGraph4["Final Storage"]
+        DB["Parquet Files<br>market_data/"]
+  end
+ subgraph subGraph5["Backtesting & Simulation"]
+    direction TB
+        TS_MOD["ts<br>time-series loader"]
+        LTS_MOD["local_ts<br>aligned local panel"]
+        BT_MOD["Realistic Backtesting Module<br>backtest_realistic.py"]
+        BT_FILE["Realistic Backtest Files<br>backtests/"]
+  end
+ subgraph subGraph6["Optimization"]
+    direction TB
+        OPT_MOD["Optimization Engine<br>grid / bayes search"]
+        OPT_FILE["Optimized Params<br>opt_results/"]
+  end
+    API_BI --> W_OBI & W_OFI & W_TRADE
+    W_OBI --> R_OBI
+    W_OFI --> R_OFI
+    W_TRADE --> R_TRADE
+    API_BG_PUB --> W_BGBOOK
+    W_BGBOOK --> R_BGBOOK
+    R_OBI -- Pop Data --> L_LOGGER
+    R_OFI -- Pop Data --> L_LOGGER
+    R_TRADE -- Pop Data --> L_LOGGER
+    R_BGBOOK -- Pop Data --> L_LOGGER
+    L_LOGGER -- Write --> DB
+    DB --> TS_MOD
+    TS_MOD --> LTS_MOD
+    LTS_MOD --> BT_MOD
+    BT_MOD --> BT_FILE
+    BT_FILE <--> OPT_MOD
+    OPT_MOD --> OPT_FILE
+
+     API_BI:::api
+     API_BG_PUB:::api
+     W_OBI:::process
+     W_OFI:::process
+     W_TRADE:::process
+     W_BGBOOK:::process
+     R_OBI:::ring
+     R_OFI:::ring
+     R_TRADE:::ring
+     R_BGBOOK:::ring
+     L_LOGGER:::logger
+     DB:::db
+     TS_MOD:::process
+     LTS_MOD:::process
+     BT_MOD:::process
+     BT_FILE:::db
+     OPT_MOD:::process
+     OPT_FILE:::db
+    classDef api fill:#FFF,stroke:#D00,stroke-width:2px
+    classDef process fill:#F9F,stroke:#333,stroke-width:2px
+    classDef ring fill:#FFFFE0,stroke:#333,stroke-width:1px,color:#333
+    classDef logger fill:#E0FFFF,stroke:#00A,stroke-width:2px
+    classDef db fill:#E8E8E8,stroke:#555,stroke-width:2px
+
+
