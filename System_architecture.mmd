@@ -1,5 +1,3 @@
-Mermaid 시스템 아키텍쳐
-
 ---
 config:
   layout: elk
@@ -18,20 +16,20 @@ flowchart LR
         W_BGBOOK["Book Maker<br>orderbook_maker_cython"]
         W_BGPOS["Bitget Private WS<br>bitget_private_ws_cython"]
   end
- subgraph subGraph2["Shared Memory Rings (IPC Bus)"]
+ subgraph subGraph2["Shared Memory Rings (IPC)"]
     direction TB
-        R_OBI["RING_OB_BI_PCT<br>OBI / Alpha"]
-        R_OFI["RING_OFI_BI<br>OFI / Kappa"]
-        R_BGBOOK["RING_OB_BG<br>Price / Execution"]
-        R_BGPOS["RING_BG_POS<br>Inventory / Skew"]
+        R_OBI["RING_2"]
+        R_OFI["RING_3"]
+        R_BGBOOK["RING_4"]
+        R_BGPOS["RING_1"]
         R_ORD["RING_ORD<br>Commands"]
         R_FILL["RING_FILL<br>Fills"]
         R_STATUS["RING_STATUS<br>Status"]
   end
- subgraph subGraph3["Process 2: Strategy (Computer 2)"]
+ subgraph subGraph3["Strategy"]
         S_ENGINE["DirectionalMMEngine (Cython)<br>3-Factor Model"]
   end
- subgraph subGraph4["Process 3: OMS (Computer 2)"]
+ subgraph subGraph4["OMS"]
         O_OMS["Order Management System (Cython)<br>Auto-Cancel &amp; State Logic"]
   end
     API_BI --> W_OBI & W_OFI
@@ -41,12 +39,12 @@ flowchart LR
     W_BGBOOK --> R_BGBOOK
     API_BG_PRIV --> W_BGPOS
     W_BGPOS --> R_BGPOS
-    R_OBI -- Read Alpha (OBI) --> S_ENGINE
-    R_OFI -- Read Kappa (OFI Vol) --> S_ENGINE
-    R_BGBOOK -- Read Price (BG Book) --> S_ENGINE
-    R_BGPOS -- Read Inventory (BG Pos) --> S_ENGINE
+    R_OBI -- Read --> S_ENGINE
+    R_OFI -- Read --> S_ENGINE
+    R_BGBOOK -- Read --> S_ENGINE
+    R_BGPOS -- Read --> S_ENGINE
     S_ENGINE -- [Cancel/Place] Commands --> R_ORD
-    R_ORD -- Read Commands --> O_OMS
+    R_ORD -- Read --> O_OMS
     O_OMS -- Send to Bitget --> API_BG_PRIV
     API_BG_PRIV -- Get WS Updates --> O_OMS
     O_OMS -- Write Fills --> R_FILL
