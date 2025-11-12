@@ -1,6 +1,7 @@
-# Rebuild_IPC_SPSC_SHM
+<img width="1887" height="948" alt="{4710B86E-889A-416B-9F59-6DCF7318AA44}" src="https://github.com/user-attachments/assets/9560ef09-44e3-4622-8357-9912dda47b4e" /># Rebuild_IPC_SPSC_SHM
 
 **1. Structure [100%]
+<img width="773" height="398" alt="image" src="https://github.com/user-attachments/assets/95477499-eb18-470b-8324-bba9fde830c9" />
 
 **2. FSM logic
 **<img width="3665" height="5658" alt="Untitled diagram-2025-11-02-064258" src="https://github.com/user-attachments/assets/14a4166c-7006-439d-b580-502d7cce4617" />
@@ -13,24 +14,20 @@
 <img width="1818" height="915" alt="image" src="https://github.com/user-attachments/assets/9a261c79-7a09-477f-bc8c-23c67610509c" />
 <img width="1053" height="449" alt="{CAC75DBD-2CF5-4319-950A-DB66B0337B71}" src="https://github.com/user-attachments/assets/9f33b04d-c225-45b9-9e3a-0550e1294d12" />
 
-5. Data center [90%] local_ts is faster than server ts(impossible)
+5. Data center [90%] 
 - Parquet data creator using same ring buffer
 - Record Server timestamp & Local timestamp [For comparing latency & Real world simulation]
+- Currently WS re-connect process has problem [Debugging]
 <img width="750" height="245" alt="{7C5A3834-5D9E-45D9-BB3F-61C6AB62155F}" src="https://github.com/user-attachments/assets/430f4c11-62f5-4efe-a447-a1a2478b77db" />
 <img width="586" height="535" alt="{5D52492C-DB1E-4C8B-BC3F-A0FFDB60591C}" src="https://github.com/user-attachments/assets/2cdfd342-0135-4624-a318-9a74329619ed" />
 <img width="579" height="607" alt="{A26BCBAD-AC14-48A1-A818-D2EA4D5918E4}" src="https://github.com/user-attachments/assets/4b7f7d7e-398e-4841-926b-5303e72b7816" />
 
 <img width="544" height="427" alt="{B6F20C6A-314A-4D2A-B4B5-3FD0A4EC97CA}" src="https://github.com/user-attachments/assets/b470b395-761c-4ab9-b3a7-a315e7921106" />
 
+6. Date Feeder 
 
-
-
-
-7. Date Feeder [80%]
-
-８. Signal [100%]
-<img width="1012" height="570" alt="image" src="https://github.com/user-attachments/assets/3db73e45-cbb4-4e7e-94e6-847f300b60e7" />
-<img width="456" height="1391" alt="image" src="https://github.com/user-attachments/assets/abce87ae-987f-4278-a8ed-5627778ff48a" />
+８. Signal 
+<img width="766" height="560" alt="{86A085C7-FB56-4EE8-9573-135F38A01A91}" src="https://github.com/user-attachments/assets/161ecf16-c597-4ed8-870a-f7f4e722e50d" />
 
 
 9. Optimization []
@@ -38,7 +35,12 @@
 
 10. Backtesting []
 
-<img width="1500" height="1000" alt="image" src="https://github.com/user-attachments/assets/61243509-6db8-4615-981b-e24ac07b2c01" />
+Spot Market
+<img width="1887" height="948" alt="{4710B86E-889A-416B-9F59-6DCF7318AA44}" src="https://github.com/user-attachments/assets/dec891d7-ad5c-40dd-947f-4c3c1d86f55c" />
+
+
+Futures Market [Add Basis Adjustment]
+<img width="1882" height="969" alt="{EDA91677-A489-4E6F-98C3-E5E1787BE877}" src="https://github.com/user-attachments/assets/62415145-e3e1-4627-a2b0-adef7957908d" />
 
 
 
@@ -52,36 +54,20 @@
 
 
 
-
-
-
-
-================================================Tips===================================================
+Additional Tips from GPT
 1. DPDK는 최후의 보루로
-2. 일단 컨테이너들 네트워크 모드를 브릿지가 아닌 호스트로 연결하기
-  
-1. 도커 네트워킹 최적화 (Docker Networking Optimization) 
-Host 네트워크 모드 사용
- 
-적용: 컨테이너 실행 시 --network host 옵션을 사용합니다.
-효과: 컨테이너가 호스트의 네트워크 스택과 IP 주소를 직접 공유함으로써, Bridge 모드에서 발생하는 NAT(주소 변환) 오버헤드와 가상 브리지 레이어를 완전히 제거하여 레이턴시를 최소화합니다.
- 
 2. 커널 및 TCP 스택 튜닝 (Kernel & TCP Tuning)
- 
-도커 컨테이너가 사용하는 리눅스 호스트의 커널 파라미터를 조정하여 TCP 성능을 개선합니다.
- 
-A. TCP Fast Open (TFO) 활성화
- 
+ 리눅스 호스트의 커널 파라미터를 조정하여 TCP 성능을 개선합니다.
+A. TCP Fast Open (TFO) 활성화 
 TCP Fast Open은 기존의 3-way handshake를 건너뛰고 데이터 전송을 시작하게 해, 연결 설정 시의 레이턴시를 줄입니다.
 설정: net.ipv4.tcp_fastopen 값을 3으로 설정합니다.
- 
-B. Nagle 알고리즘 비활성화 (TCP NoDelay)
+**[별 도움 안됌]**
+B. Nagle 알고리즘 비활성화 (TCP NoDelay) **[적용이미되어있음]**
  
 WebSocket은 실시간성이 중요하므로, 작은 패킷이라도 지연 없이 즉시 전송해야 합니다. Nagle 알고리즘은 네트워크 효율성을 위해 작은 패킷을 모아 전송하는데, 이는 레이턴시를 증가시킵니다.
 적용: 애플리케이션 코드 (또는 서버 설정)에서 TCP NoDelay 옵션을 활성화하여 Nagle 알고리즘을 비활성화합니다.
  
-C. 네트워크 버퍼 크기 조정
- 
+C. 네트워크 버퍼 크기 조정 **[적용]**
 TCP/IP 버퍼 크기를 늘려 대용량 트래픽 처리 능력을 향상하고, 패킷 손실로 인한 재전송 가능성을 줄입니다.
 설정: /etc/sysctl.conf에서 다음 파라미터들을 조정합니다.
 net.core.rmem_max (수신 최대 버퍼)
@@ -89,7 +75,6 @@ net.core.wmem_max (송신 최대 버퍼)
 net.ipv4.tcp_rmem, net.ipv4.tcp_wmem (TCP 수신/송신 메모리 한도)
  
 D. Interrupt Coalescing 및 CPU Affinity
- 
 네트워크 인터럽트(IRQ) 처리의 효율성을 높입니다.
 IRQ Affinity: 네트워크 인터럽트 처리를 특정 CPU 코어에 할당하여 캐시 미스(Cache Miss)를 줄이고 처리 효율을 높입니다.
 Interrupt Coalescing: 패킷이 도착할 때마다 인터럽트를 발생시키는 대신, 일정 시간이나 패킷 수만큼 모아서 처리하여 CPU 사용률과 오버헤드를 줄입니다. (이 설정은 일반적으로 NIC 드라이버 수준에서 조정됩니다.)
