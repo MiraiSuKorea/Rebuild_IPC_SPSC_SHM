@@ -31,28 +31,9 @@
 
 <img width="544" height="427" alt="{B6F20C6A-314A-4D2A-B4B5-3FD0A4EC97CA}" src="https://github.com/user-attachments/assets/b470b395-761c-4ab9-b3a7-a315e7921106" />
 
-6. Date Feeder 
-
 ８. Signal 
 
 <img width="766" height="560" alt="{86A085C7-FB56-4EE8-9573-135F38A01A91}" src="https://github.com/user-attachments/assets/161ecf16-c597-4ed8-870a-f7f4e722e50d" />
-
-
-9. Optimization []
-
-
-10. Backtesting []
-
-Spot Market
-<img width="1887" height="948" alt="{4710B86E-889A-416B-9F59-6DCF7318AA44}" src="https://github.com/user-attachments/assets/dec891d7-ad5c-40dd-947f-4c3c1d86f55c" />
-
-
-Futures Market [Add Basis Adjustment]
-<img width="1882" height="969" alt="{EDA91677-A489-4E6F-98C3-E5E1787BE877}" src="https://github.com/user-attachments/assets/62415145-e3e1-4627-a2b0-adef7957908d" />
-
-
-
-
 
 
 
