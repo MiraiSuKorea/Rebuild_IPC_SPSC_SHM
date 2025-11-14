@@ -46,6 +46,8 @@ Futures Market [Add Basis Adjustment]
 
 
 
+Including 0.016% of limit order fee rate
+<img width="1886" height="962" alt="{0284891C-5B7A-426C-88B7-0FA569B187E8}" src="https://github.com/user-attachments/assets/f7f282d8-6d2a-4baf-9993-c534339cdf84" />
 
 
 
