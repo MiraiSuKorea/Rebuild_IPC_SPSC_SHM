@@ -51,11 +51,8 @@ Colocation 이후 Network latency는 1-2ms 로 안정화 되었음
 - Parquet data creator using same ring buffer
 - Record Server timestamp & Local timestamp [For comparing latency & Real world simulation]
 - Currently WS re-connect process has problem [Debugging]
-<img width="750" height="245" alt="{7C5A3834-5D9E-45D9-BB3F-61C6AB62155F}" src="https://github.com/user-attachments/assets/430f4c11-62f5-4efe-a447-a1a2478b77db" />
-<img width="586" height="535" alt="{5D52492C-DB1E-4C8B-BC3F-A0FFDB60591C}" src="https://github.com/user-attachments/assets/2cdfd342-0135-4624-a318-9a74329619ed" />
-<img width="579" height="607" alt="{A26BCBAD-AC14-48A1-A818-D2EA4D5918E4}" src="https://github.com/user-attachments/assets/4b7f7d7e-398e-4841-926b-5303e72b7816" />
+<img width="275" height="242" alt="{062FC85A-2FD9-436A-A634-BFEA4C0AB279}" src="https://github.com/user-attachments/assets/5b73d205-bef4-4f31-862e-8972604a0a9b" />
 
-<img width="544" height="427" alt="{B6F20C6A-314A-4D2A-B4B5-3FD0A4EC97CA}" src="https://github.com/user-attachments/assets/b470b395-761c-4ab9-b3a7-a315e7921106" />
 
 ８. Signal 
 
