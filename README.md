@@ -1,3 +1,15 @@
+Colocation 이후 Network latency는 1-2ms 로 안정화 되었음
+
+
+
+
+
+
+
+
+
+
+
 <p align="center">
  <img src="https://github.com/user-attachments/assets/7bbf8d3f-803d-454e-b8ad-8149e81c0695">
 </p>
