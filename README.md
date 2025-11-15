@@ -4,6 +4,20 @@
  Including 0.016% of limit order fee rate
 <img width="1886" height="962" alt="{0284891C-5B7A-426C-88B7-0FA569B187E8}" src="https://github.com/user-attachments/assets/f7f282d8-6d2a-4baf-9993-c534339cdf84" />
 
+위 사진은 실 마켓 거래입니다.
+레이턴시 문제가 체결되면 안되는 주문들을 체결하게 만들고 있음
+어차피 로컬에서 작동하는지 안하는지 체크
+
+현재 20ms -> 데이터 레이턴시
+주문이 나가는데에도 20ms 정도 걸림. 총 40ms
+계산에는 1ms 내외
+
+따라서 colocation 한번 해보고(예상하기로는 40ms -> 10ms정도로 줄어들거 같고, 스프레드가 생각보다 큰 모형이니깐 이정도만 달성해도 괜찮을거라 판단은 하고 있음)
+주문은 cancel -> reorder 프로세스에서
+
+주문존재 -> modify order
+존재 x -> reorder 프로세스로 바꾸었음
+
 
 
 
